@@ -3,8 +3,7 @@
 
 ## install required libs
 * [pandoc](https://pandoc.org/)
-* [mermaid-filter](https://github.com/raghur/mermaid-filter.git)
-
+* [mermaid cli](https://github.com/mermaid-js/mermaid-cli) 
 
 ## Installation 
 ```bash

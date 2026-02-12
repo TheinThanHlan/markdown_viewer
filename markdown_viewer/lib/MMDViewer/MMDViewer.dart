@@ -17,16 +17,36 @@ class MMDViewer extends StatelessWidget implements WinterView {
     //      return Desktop(c);
     //    });
     return Scaffold(
-      body: SingleChildScrollView(
-        child: FutureBuilder(
-          future: readFile(),
-          builder: (context, snapshot) {
-            if (snapshot.data != null) {
-              return Html(data: snapshot.data);
-            }
-            return Html(data: "<h1>Loading...</h1>");
-          },
-        ),
+      body: Column(
+        crossAxisAlignment: .stretch,
+        mainAxisSize: .max,
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: FutureBuilder(
+                future: readFile(),
+                builder: (context, snapshot) {
+                  if (snapshot.data != null) {
+                    return SelectionArea(
+                      child: Html(
+                        data: snapshot.data,
+                        style: {
+                          //"*": Style(
+                          //  //backgroundColor: Colors.red,
+                          //  margin: Margins.zero,
+                          //  padding: HtmlPaddings.zero,
+                          //),
+                          //// "img": Style(width: Width(1000, Unit.px)),
+                        },
+                      ),
+                    );
+                  }
+                  return Html(data: "<h1>Loading...</h1>");
+                },
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

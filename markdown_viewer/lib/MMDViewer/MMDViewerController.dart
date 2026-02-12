@@ -34,20 +34,31 @@ class MMDViewerController implements WinterController {
       return false;
     }
     var fileName = basename(_model.file_path);
-    var result = Process.runSync("pandoc", [
-      "-f",
-      "markdown_mmd",
-      "-t",
-      "html",
+    var result = Process.runSync("mmdc", [
+      "-i",
       _model.file_path,
-      "-F",
-      "mermaid-filter",
+      "-e",
+      "png",
+      "-s",
+      "3",
+      "-o",
+      "/tmp/$fileName.md",
+    ]);
+    if (result.exitCode != 0) {
+      print(result.stderr.toString());
+      return false;
+    }
+    var result1 = Process.runSync("pandoc", [
+      "/tmp/$fileName.md",
+      "--embed-resources",
+      "--standalone",
       "-o",
       "/tmp/$fileName.html",
-    ]);
-    if (result.exitCode == 0) {
-      return true;
+    ], workingDirectory: "/tmp");
+    if (result1.exitCode != 0) {
+      print(result.stderr.toString());
+      return false;
     }
-    return false;
+    return true;
   }
 }

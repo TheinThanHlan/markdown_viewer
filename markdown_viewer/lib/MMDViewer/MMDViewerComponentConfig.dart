@@ -38,6 +38,6 @@ class MMDViewerComponentConfig implements Configurer {
 
   //please write the tasks you want to do after config here
   Future<void> _postConfig() async {
-    debugPrint("\t~>\tHomeComponent injected;");
+    debugPrint("\t~>\tMMDViewerComponent injected;");
   }
 }
